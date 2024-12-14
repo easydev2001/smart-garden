@@ -12,10 +12,10 @@ const MyChart = () => {
     ['Thời gian', 'Độ ẩm'],
     ['0:00', 0],
   ])
-  // const [data3, setData3] = useState([
-  //   ['Thời gian', 'Độ PH'],
-  //   ['0:00', 0],
-  // ])
+  const [data3, setData3] = useState([
+    ['Thời gian', 'Độ PH'],
+    ['0:00', 0],
+  ])
 
   useEffect(() => {
     const sensorDataRef = ref(database, 'sensor_data')
@@ -41,16 +41,16 @@ const MyChart = () => {
         }),
         item.humidity,
       ])
-      // const ph = dataArray.map((item) => [
-      //   item.time.toLocaleString('vi-VN', {
-      //     timeZone: 'Asia/Ho_Chi_Minh',
-      //     hour12: false,
-      //   }),
-      //   item.ph,
-      // ])
+      const ph = dataArray.map((item) => [
+        item.time.toLocaleString('vi-VN', {
+          timeZone: 'Asia/Ho_Chi_Minh',
+          hour12: false,
+        }),
+        item.pH,
+      ])
       setData1([['Thời gian', 'Nhiệt độ'], ...temp])
       setData2([['Thời gian', 'Độ ẩm'], ...humid])
-      // setData3([['Thời gian', 'Độ PH'], ...ph])
+      setData3([['Thời gian', 'Độ PH'], ...ph])
     })
 
     // Cleanup listener when component unmount
@@ -81,23 +81,23 @@ const MyChart = () => {
     },
   }
 
-  // const options3 = {
-  //   title: 'Biểu đồ Độ PH theo thời gian',
-  //   curveType: 'function',
-  //   legend: { position: 'bottom' },
-  //   colors: ['#a855f7'],
-  //   lineWidth: 4,
-  //   animation: {
-  //     duration: 1000,
-  //     easing: 'out',
-  //   },
-  // }
+  const options3 = {
+    title: 'Biểu đồ Độ PH theo thời gian',
+    curveType: 'function',
+    legend: { position: 'bottom' },
+    colors: ['#a855f7'],
+    lineWidth: 4,
+    animation: {
+      duration: 1000,
+      easing: 'out',
+    },
+  }
 
   return (
     <>
       <Chart chartType='LineChart' width='100%' height='300px' data={data1} options={options1} legendToggle />
       <Chart chartType='LineChart' width='100%' height='300px' data={data2} options={options2} legendToggle />
-      {/* <Chart chartType='LineChart' width='100%' height='300px' data={data3} options={options3} legendToggle /> */}
+      <Chart chartType='LineChart' width='100%' height='300px' data={data3} options={options3} legendToggle />
     </>
   )
 }
