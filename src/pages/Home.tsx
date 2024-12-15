@@ -36,7 +36,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <div className='min-h-screen bg-slate-50 p-4 flex gap-4'>
+      <div className='min-h-screen bg-slate-50 p-4 flex flex-col md:flex-row gap-4'>
         <div className='flex flex-col items-center gap-4'>
           <div className='flex flex-col items-center justify-center gap-4 w-40 h-40 rounded-md shadow-md bg-white'>
             <h1 className='text-xl font-medium'>Nhiệt độ</h1>
