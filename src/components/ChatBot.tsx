@@ -17,7 +17,7 @@ const MyChatBot = () => {
   }
   const flow = {
     start: {
-      message: 'Bạn cần tôi giúp gì ko?',
+      message: 'Tôi là một trợ lý chuyên nghiệp giúp bạn theo dõi và quản lý chất lượng đất. Bạn cần tôi giúp gì ko?',
       path: 'loop',
     },
     loop: {
