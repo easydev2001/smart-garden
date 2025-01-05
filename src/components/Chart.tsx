@@ -46,7 +46,7 @@ const MyChart = () => {
           timeZone: 'Asia/Ho_Chi_Minh',
           hour12: false,
         }),
-        item.pH,
+        Math.round((item.pH * 14) / 9),
       ])
       setData1([['Thời gian', 'Nhiệt độ'], ...temp])
       setData2([['Thời gian', 'Độ ẩm'], ...humid])
