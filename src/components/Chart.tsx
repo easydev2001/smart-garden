@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { ref, onValue } from 'firebase/database'
+import { ref, onValue, remove } from 'firebase/database'
 import { database } from '../fỉebase'
 import Chart from 'react-google-charts'
 
@@ -26,22 +26,32 @@ const MyChart = () => {
         time: new Date(Number(key) * 1000),
         ...data[key],
       }))
-      console.log('🚀 ~ dataArray:', dataArray)
-      const temp = dataArray.map((item) => [
+
+      // Lấy 50 bản ghi cuối cùng
+      const latestDataArray = dataArray.slice(-50)
+
+      // Xóa các bản ghi cũ
+      const keysToDelete = Object.keys(data).slice(0, -50)
+      keysToDelete.forEach((key) => {
+        remove(ref(database, `sensor_data/${key}`))
+      })
+
+      console.log('🚀 ~ latestDataArray:', latestDataArray)
+      const temp = latestDataArray.map((item) => [
         item.time.toLocaleString('vi-VN', {
           timeZone: 'Asia/Ho_Chi_Minh',
           hour12: false,
         }),
         item.temperature,
       ])
-      const humid = dataArray.map((item) => [
+      const humid = latestDataArray.map((item) => [
         item.time.toLocaleString('vi-VN', {
           timeZone: 'Asia/Ho_Chi_Minh',
           hour12: false,
         }),
         item.humidity,
       ])
-      const ph = dataArray.map((item) => [
+      const ph = latestDataArray.map((item) => [
         item.time.toLocaleString('vi-VN', {
           timeZone: 'Asia/Ho_Chi_Minh',
           hour12: false,
@@ -56,7 +66,6 @@ const MyChart = () => {
     // Cleanup listener when component unmount
     return () => unsubscribe()
   }, [])
-
   const options1 = {
     title: 'Biểu đồ Nhiệt độ theo thời gian',
     curveType: 'function',
